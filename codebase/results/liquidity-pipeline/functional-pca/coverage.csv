@@ -1,0 +1,34 @@
+pool,T,outcome,n_total_blocks,n_qualifying_blocks,n_windows,n_windows_aligned,reason
+WETH_USDC@5bp,300,produced,1641,1641,135,115,
+WETH_USDC@5bp,400,produced,1641,1641,125,115,
+WETH_USDC@5bp,500,produced,1641,1641,115,115,
+WETH_USDC@1bp,300,produced,1641,1081,79,59,
+WETH_USDC@1bp,400,produced,1641,1081,69,59,
+WETH_USDC@1bp,500,produced,1641,1081,59,59,
+WETH_USDC@30bp,300,produced,1641,1641,135,115,
+WETH_USDC@30bp,400,produced,1641,1641,125,115,
+WETH_USDC@30bp,500,produced,1641,1641,115,115,
+WETH_USDT@1bp,300,produced,1641,1059,76,56,
+WETH_USDT@1bp,400,produced,1641,1059,66,56,
+WETH_USDT@1bp,500,produced,1641,1059,56,56,
+WETH_USDT@5bp,300,produced,1641,1426,113,93,
+WETH_USDT@5bp,400,produced,1641,1426,103,93,
+WETH_USDT@5bp,500,produced,1641,1426,93,93,
+WETH_USDT@30bp,300,produced,1641,1641,135,115,
+WETH_USDT@30bp,400,produced,1641,1641,125,115,
+WETH_USDT@30bp,500,produced,1641,1641,115,115,
+WBTC_WETH@5bp,300,produced,1641,702,41,21,
+WBTC_WETH@5bp,400,produced,1641,702,31,21,
+WBTC_WETH@5bp,500,produced,1641,702,21,21,
+WBTC_WETH@30bp,300,produced,1641,1216,92,72,
+WBTC_WETH@30bp,400,produced,1641,1216,82,72,
+WBTC_WETH@30bp,500,produced,1641,1216,72,72,
+WBTC_USDT@5bp,500,skipped,1641,418,,,"only 418 qualifying blocks, need >= 500"
+WBTC_USDT@5bp,300,produced-thin,1641,418,12,2,aligned window count 2 < MIN_ALIGNED_WINDOWS=10
+WBTC_USDT@5bp,400,produced-thin,1641,418,2,2,aligned window count 2 < MIN_ALIGNED_WINDOWS=10
+WBTC_USDT@30bp,300,skipped,1641,261,,,"only 261 qualifying blocks, need >= 300"
+WBTC_USDT@30bp,400,skipped,1641,261,,,"only 261 qualifying blocks, need >= 400"
+WBTC_USDT@30bp,500,skipped,1641,261,,,"only 261 qualifying blocks, need >= 500"
+USDC_USDT@1bp,300,skipped,1641,0,,,"only 0 qualifying blocks, need >= 300"
+USDC_USDT@1bp,400,skipped,1641,0,,,"only 0 qualifying blocks, need >= 400"
+USDC_USDT@1bp,500,skipped,1641,0,,,"only 0 qualifying blocks, need >= 500"

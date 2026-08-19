@@ -1,0 +1,12 @@
+pool,outcome,n_total_blocks,n_qualifying_blocks,reason
+WETH_USDC@5bp,produced,1641,1641,
+WETH_USDC@1bp,produced,1641,1081,
+WETH_USDC@30bp,produced,1641,1641,
+WETH_USDT@1bp,produced,1641,1059,
+WETH_USDT@5bp,produced,1641,1426,
+WETH_USDT@30bp,produced,1641,1641,
+WBTC_WETH@5bp,produced,1641,702,
+WBTC_WETH@30bp,produced,1641,1216,
+WBTC_USDT@5bp,produced,1641,418,
+WBTC_USDT@30bp,produced,1641,261,
+USDC_USDT@1bp,skipped,1641,0,"only 0 qualifying blocks, need >= 2 for a non-degenerate covariance"

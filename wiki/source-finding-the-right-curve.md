@@ -1,0 +1,51 @@
+---
+title: Finding the Right Curve — Optimal Design of Constant Function Market Makers
+layer: core
+type: source
+origin: thesis
+source_path: "articles/optimal shape/curve-design/Finding the Right Curve - Optimal Design of Constant Function Market Makers.pdf"
+source_kind: paper
+date: 2026-08-04
+---
+
+# Finding the Right Curve — Optimal Design of Constant Function Market Makers
+
+Formulates a convex program that takes an LP's belief about future asset prices as input and returns the trading function that maximizes the expected fraction of trade requests a CFMM can settle. Analysis of the program's KKT conditions inverts the map: any deployed trading function implies an equivalence class of beliefs for which it is optimal, and this recovers the informal design intuition behind constant product, weighted product, LMSR, and concentrated liquidity CFMMs. The framework extends to fee revenue and to loss against arbitrage, so a profit-seeking LP can also solve for a shape that maximizes net expected profit rather than raw fill rate.
+
+**Authors / venue / year:** Mohak Goyal, Geoffrey Ramseyer, Ashish Goel, David Mazières. arXiv:2212.03340, ACM EC (Conference on Economics and Computation).
+
+## Key points
+- A CFMM trades two assets X and Y through a trading function f(x, y); a trade (Δx, Δy) is accepted iff f(x − Δx, y + Δy) = f(x, y). Given strict quasi-concavity of f, the reserve state at any spot exchange rate p can be written as functions X(p), Y(p), and the CFMM's behavior is fully captured by the amount of Y held at each p.
+- Defines the **liquidity** L(p) of a CFMM at exchange rate p as dY(p)/d ln(p): the amount of capital effectively deployed for market-making at that rate. This is the paper's central technical device — the trading function is discarded and replaced by a liquidity allocation L(·), which is provably equivalent (Corollary 4.12) but linear and easy to optimize over.
+- Defines **CFMM inefficiency** at rate p̂ for a trade of size k units of Y as k/L(p̂): the approximate probability that a trade request of that size fails. This turns "does the CFMM fill trades" into a convex, linear-in-L functional that can sit inside an optimization objective.
+- An LP's belief is a function ψ(pX, pY) proportional to the LP's probability that, at a future time, X will trade at pX and Y at pY (relative to a numeraire), not necessarily normalized to integrate to 1. Time-discounted beliefs derived from a price-dynamics model (e.g. geometric Brownian motion) reduce to a single static ψ by integrating out time (Eq. 1).
+- The optimal liquidity allocation is unique up to the beliefs' equivalence class (Corollary 4.6): rescaling ψ on (0, αPX) × (0, αPY) for any α > 0 leaves the optimal L(·) unchanged, and beliefs that agree after conversion to polar coordinates (r, θ) up to a constant give the same allocation.
+- Closed-form results recover practitioner intuition directly: a uniform, independent belief ψ ≡ 1 is optimal for the constant product market maker f(x,y) = xy; a belief uniform on a sub-range of exchange rates is optimal for a concentrated liquidity position (see [[concept-concentrated-liquidity]]); a belief skewed as (pX/pY)^((α−1)/(α+1)) is optimal for the weighted product maker f(x,y) = x^α y; and the belief pX pY / (pX + pY)² is optimal for the LMSR-based maker f(x,y) = 2 − e^−x − e^−y.
+- The framework extends beyond raw fill rate to fee revenue (§6.1) and to loss against arbitrage / divergence loss and loss-versus-rebalancing, LVR (§6.2), by adding linear-in-L(·) terms to the objective; the resulting profit objective is concave in L(·), so the profit-maximizing allocation is still recoverable by convex optimization (Observation 5).
+
+## Notable claims & data
+- **The convex program (COP, Theorem 4.4).** Given initial reference prices PX, PY and belief ψ, the optimal liquidity allocation L(·) solves, with decision variables X0, Y0, and L(p) for every p > 0:
+  - minimize ∬ ψ(pX, pY) / (pY L(pX/pY)) dpX dpY
+  - subject to ∫₀^p0 L(p)/p dp ≤ Y0, ∫_p0^∞ L(p)/p² dp ≤ X0, X0·PX + Y0·PY ≤ B, L(p) ≥ 0 for all p > 0.
+  B is the LP's fixed budget and p0 = PX/PY is the CFMM's initial spot rate. The objective is Proposition 4.1's expected CFMM inefficiency: (1/Nψ) ∬ ψ(pX,pY)/(pY L(pX/pY)) dpX dpY, where Nψ is the total mass of the belief function.
+- **Solver class.** COP is an infinite-dimensional convex program (one decision variable L(p) per exchange rate p, a Banach-space optimization). Existence of a solution and well-posed KKT conditions follow from standard functional-analytic results (Zeidler); the paper analyzes those KKT conditions (Lemma 4.11) to get closed-form L(·) for several named belief functions (constant product, weighted product, LMSR, concentrated liquidity, lognormal/Black-Scholes-implied). For a belief with no closed form, the authors state the program remains computationally tractable and provide a numerical solver: a Python script (github.com/gramseyer/cfmm-liquidity-optimization) that, given an arbitrary user-submitted belief function, computes the optimal trading function directly. This paper is a genuine "belief in, curve out" computational pipeline, not just a characterization result.
+- **KKT structure (Lemma 4.11).** With λY, λX, λB the multipliers on the two reserve constraints and the budget constraint, and λL(p) the multiplier on L(p) ≥ 0, at any p with φψ(cot⁻¹(p)) > 0: λX/p² = φψ(cot⁻¹(p)) sin(cot⁻¹(p))/L(p) + λL(p) for p ≥ p0, and the symmetric condition in λY for p ≤ p0, with λX = PX λB and λY = PY λB. This shows L(p) at optimum is a function only of the LP's belief along the ray of relative exchange rate p (Proposition 4.14) — no cross-rate interaction beyond an overall scalar — which is what licenses the inversion from allocation back to belief (Corollary 4.15, Corollary 4.16).
+- **Fee revenue extension (Proposition 6.2).** For trading fee rate δ and predicted trade-volume density rateδ(pX, pY), expected CFMM revenue per unit time is μ = (δ/Nψ) ∬ rateδ(pX,pY) ψ(pX,pY) (1 − s/(pY L(pX/pY))) dpX dpY, for mean trade size s (in numeraire units). Corollary 6.3: the fee-revenue-maximizing L(·) equals the inefficiency-minimizing L(·) for the composite belief rateδ(pX,pY)·ψ(pX,pY) — so predicted trade rate and price belief combine multiplicatively into a single effective belief function.
+- **Loss and net profit.** Divergence loss is C − v(ψ), where v(ψ) = (1/Nψ) ∬ ψ(pX,pY)(pX·X(pX/pY) + pY·Y(pX/pY)) dpX dpY is the belief-expected value of the CFMM's future reserves (Proposition 6.4) and C is a counterfactual payoff; this expression is linear in each L(p). Loss-versus-rebalancing (LVR, following Milionis et al.) is likewise linear in L(·), with instantaneous LVR proportional to −p² dX(p)/dp = L(p) under a diffusion of variance σ². Since both loss measures are linear in L(·), net expected profit μ(·) − Γ(L(·)) is concave in L(·) (Lemma 6.5) and the profit-maximizing allocation is still a convex program with the same constraint set as COP (Observation 5). Theorem 6.6 shows accounting for divergence loss shifts the optimal liquidity allocation away from the current exchange rate p0 toward more extreme rates, relative to the fee-revenue-only optimum.
+
+## Connections
+- Directly answers the computational half of [[synthesis-optimal-liquidity-shape]]: this is the paper in the corpus that literally outputs a curve from an input belief, via a convex program rather than a heuristic.
+- The output object is a trading function / liquidity allocation, i.e. a [[concept-bonding-curve]] and a [[concept-liquidity-profile]] over exchange rates; the paper's L(p) is the same liquidity-density object central to [[concept-liquidity-profile]].
+- Generalizes and formally characterizes [[concept-constant-function-market-maker]] design choices, and its concentrated-liquidity special case (§5.2) matches [[concept-concentrated-liquidity]] and the ranges used by [[entity-uniswap-v3]].
+- The uniform-belief result recovering f(x,y) = xy connects to [[concept-geometric-mean-market-maker]] as the canonical zero-information optimum.
+- Section 6.2's divergence loss and LVR terms are the same accounting objects as [[concept-loss-versus-rebalancing]] and are additive with fee-revenue and adverse-selection effects, linking to [[concept-adverse-selection]] and [[concept-arbitrage-with-fees]] as the mechanisms that generate the loss being minimized.
+- The paper's liquidity function L(p) and its relationship to reserves X(p), Y(p) is the same reserve/exchange-rate correspondence formalized as [[concept-reserve-option-duality]] and treated with portfolio-replication tools in [[source-replicating-market-makers]] and [[source-geometry-of-cfmms]].
+- Shares its objective — an LP's belief-driven optimal deployment of capital across exchange rates — with [[concept-optimal-liquidity-provision]] and with the loss/hedging accounting of [[source-rtw26-cfmm-liquidity-pricing-hedging]]; contrasts with the closed-form stochastic-control approach of [[source-cartea-predictable-loss-optimal-lp]], which optimizes a scalar range width rather than a full curve.
+- The notion of capital allocated to market-making at a given price, [[concept-intrinsic-liquidity]], is formalized here precisely as L(p).
+
+## Open questions
+- The convex program treats the belief function ψ as exogenous and static (or time-discounted into a static form); it gives no procedure for estimating ψ from market data, leaving belief construction outside the model.
+- Assumption 2 (small trade size, k ≪ |Lε(p̂)|) underlies the k/L(p̂) inefficiency approximation; the paper does not quantify how the optimal L(·) shifts once this assumption is relaxed for large trades.
+- The KKT analysis assumes ψ is continuously differentiable on an open support set; behavior of the optimal allocation for beliefs with mass points or non-open support is not treated.
+- The paper does not compare the computational cost or convergence behavior of the numerical solver against closed-form solutions, nor does it benchmark the resulting optimal CFMMs against real trading data (no backtest, unlike [[source-cartea-predictable-loss-optimal-lp]]).
+- Rebalancing strategies — periodically modifying the trading function in response to realized prices — are explicitly out of scope; the optimal curve here is a one-shot design choice, not a dynamic policy.

@@ -1,0 +1,4 @@
+# Test dependencies. Install alongside requirements.txt to run codebase/tests/.
+
+-r requirements.txt
+pytest>=9.1

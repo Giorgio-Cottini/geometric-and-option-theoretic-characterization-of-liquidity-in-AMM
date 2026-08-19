@@ -1,0 +1,45 @@
+# ═══ PRIVATE ═══════════════════════════════════════════════════════
+# Reveals the person, or third-party content that must not be redistributed.
+# A path here is a deliberate privacy or licensing decision.
+
+codebase/data_extraction/.env
+
+# Third-party PDFs, tracked deliberately in this private repository. Their
+# redistribution rights are not cleared. The public repository, a separate
+# clean history built from this tree, excludes this directory from its first commit.
+articles/
+
+# ═══ REGENERABLE ═══════════════════════════════════════════════════
+# A documented command rebuilds this. The command follows each entry.
+# An entry with no command belongs under a different header.
+
+# Structural code graph. Rebuild: run the graphify skill on this project.
+codebase/graphify-out/
+
+# Python bytecode: specific to the machine and the interpreter version, never source.
+__pycache__/
+*.pyc
+
+# ═══ MACHINE-LOCAL ═════════════════════════════════════════════════
+# True of this laptop only. Invalid in any other checkout.
+
+# Working directories. Never tracked, at any depth.
+tmp/
+
+# Planner instances.
+.planner-*/
+
+# Session-local Claude Code settings. Never shared, never portable across machines.
+.claude/settings.local.json
+
+# Exact machine specs (OS, CPU, RAM, GPU). True of this laptop only.
+.claude/machine.local.md
+
+# Obsidian's open-pane/tab layout. Churns every session, carries no content.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian plugin binaries and cache. Rebuild: community-plugins.json lists what to
+# reinstall from the Community Plugins browser.
+.obsidian/plugins/*/
+.obsidian/cache

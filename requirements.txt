@@ -1,0 +1,11 @@
+# Runtime dependencies for codebase/. Floors reflect the versions this
+# codebase is developed and tested against, read from the local environment,
+# not upper-bounded, since no version-specific syntax was found in a source scan.
+
+numpy>=1.26
+pandas>=2.1
+pyarrow>=17.0
+scipy>=1.14
+matplotlib>=3.9
+requests>=2.32
+python-dotenv>=1.0

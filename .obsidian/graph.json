@@ -1,0 +1,7 @@
+{
+  "search": "[layer] -file:CLAUDE",
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true
+}

@@ -1,0 +1,96 @@
+\documentclass[12pt, oneside]{report}
+
+% ------------------------------------------------------------
+% Settings: packages, fonts, etc.
+\input{assets/packages}
+\input{assets/commands.tex}
+\input{assets/titlepage}
+
+% ------------------------------------------------------------
+% begin document
+\begin{document}
+
+% ------------------------------------------------------------
+% Front matter: title page, abstract, toc
+% ------------------------------------------------------------
+
+% Roman page numbering for front matter
+\pagenumbering{roman}
+% -----------------------------
+% Title page
+
+\makeunipdtitlepage%
+% -----------------------------
+% Empty
+
+\clearpage
+\thispagestyle{plain}
+\null%
+\clearpage
+% -----------------------------
+% abstract
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\input{chapters/abstract}
+\clearpage
+% -----------------------------
+% toc
+\tableofcontents
+\clearpage
+
+% ------------------------------------------------------------
+% Main matter: chapters, appendices
+% ------------------------------------------------------------
+
+\pagenumbering{arabic}
+
+% -----------------------------
+\chapter{Introduction}
+\input{chapters/introduction}
+\clearpage
+
+% -----------------------------
+\chapter{Mathematical Framework}
+\input{chapters/mathematical-framework}
+\clearpage
+
+% -----------------------------
+\chapter{Data and Methodology}
+\input{chapters/methodology}
+\clearpage
+
+% -----------------------------
+\chapter{Results}
+\input{chapters/results}
+\clearpage
+
+% -----------------------------
+\chapter{Discussion and Conclusions}
+\input{chapters/discussion-and-conclusions}
+\clearpage
+
+% ------------------------------------------------------------
+% AI usage disclosure
+% ------------------------------------------------------------
+
+\phantomsection%
+\addcontentsline{toc}{chapter}{AI Usage Disclosure}
+{\normalfont\large\bfseries AI Usage Disclosure\par}
+\vspace{1em}
+\input{assets/AI-usage}
+\clearpage
+
+% ------------------------------------------------------------
+% Appendices
+% ------------------------------------------------------------
+
+\appendix
+\chapter{Appendices}
+\input{chapters/appendices}
+
+% ------------------------------------------------------------
+% eof
+% ------------------------------------------------------------
+
+\end{document}

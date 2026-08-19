@@ -1,0 +1,189 @@
+.claude/
+  skills/
+    peng-answer/
+      SKILL.md
+    peng-code/
+      SKILL.md
+    peng-plan/
+      SKILL.md
+    peng-troubleshoot/
+      SKILL.md
+    update-dirtree/
+      SKILL.md
+  settings.local.json
+articles/
+  Geometry (Wang)/
+    9879Lecture06-2025-MathInAMM.pdf
+    Bocconi_Nov20-2024_1.pdf
+    Bocconi_Nov20-2024_2.pdf
+  liquidity/
+    A MATHEMATICAL FRAMEWORK FOR MODELLING CLMM.pdf
+    DYNAMICS OF LIQUIDITY SURFACES IN UNISWAP V3.pdf
+  LPs/
+    BIS_decentralized_dealers.pdf
+    Clustering Uniswap v3 traders from their activity.pdf
+  LVR/
+    Automated Market Making and Arbitrage Profits in the Presence of Fees.pdf
+    Automated Market Making and Loss-Versus-Rebalancing.pdf
+    Quantifying Loss in Automated Market Makers.pdf
+  scaling and renorm/
+    Scaling symmetry, renormalization, and time series modeling.pdf
+  vol surface/
+    roughness/
+      From rough to multifractal volatility (The log S-fBM model).pdf
+      Pricing Under Rough Volatility.pdf
+    Arbitrage-free SVI volatility surfaces.pdf
+    Dynamics of Implied Volatility Surfaces.pdf
+    Pricing and Hedging for Liquidity Provision in Constant Function Market Making.pdf
+    TERM STRUCTURES OF IMPLIED VOLATILITIES - ABSENCE OF ARBITRAGE AND EXISTENCE RESULT.pdf
+  partial_summary.ipynb
+codebase/
+  data/
+    processed/
+      ETH_USDC/
+        eth_usdc_30bp_ticks.parquet
+        eth_usdc_5bp_ticks.parquet
+      liquidity/
+        USDC_USDT/
+          5bp_ticks.parquet
+        WBTC_WETH/
+          5bp_ticks.parquet
+        WETH_USDC/
+          5bp_ticks.parquet
+        WETH_USDT/
+          5bp_ticks.parquet
+    raw/
+      liquidity/
+        ETH_USDC/
+          eth_usdc_30bp_pool_states.parquet
+          eth_usdc_30bp_ticks.parquet
+          eth_usdc_5bp_pool_states.parquet
+          eth_usdc_5bp_ticks.parquet
+        USDC_USDT/
+          5bp_pool_states.parquet
+          5bp_ticks.parquet
+        WBTC_WETH/
+          5bp_pool_states.parquet
+          5bp_ticks.parquet
+        WETH_USDC/
+          5bp_pool_states.parquet
+          5bp_ticks.parquet
+        WETH_USDT/
+          5bp_pool_states.parquet
+          5bp_ticks.parquet
+      snapshot/
+        liquidity/
+          eth_usdc_30bp_pool_state.json
+          eth_usdc_30bp_ticks_page0.json
+          eth_usdc_30bp_ticks_page1.json
+          eth_usdc_5bp_pool_state.json
+          eth_usdc_5bp_ticks_page0.json
+          eth_usdc_5bp_ticks_page1.json
+          eth_usdc_5bp_ticks_page2.json
+          eth_usdc_5bp_ticks_page3.json
+        options/
+          1773510257555_eth_options_book_summary.json
+  data_extraction/
+    .env
+    config.py
+    download_liquidity_evolution.py
+    download_snapshot.ps1
+  src/
+    data_processing/
+      liquidity/
+        clean_parquet.py
+      snapshot/
+        __init__.py
+        config.py
+        liquidity_pipeline.py
+        options_pipeline.py
+        utils.py
+      __init__.py
+      block_timestamps.py
+      fetch_block_timestamps.py
+    graphics/
+      __init__.py
+      config.py
+      impermanent_loss.py
+      implied_volatility.py
+      liquidity_profile.py
+      liquidity_vs_price.py
+    math_core/
+      __init__.py
+      config.py
+      impermanent_loss.py
+      implied_volatility.py
+      interpolation.py
+      liquidity_profile.py
+      liquidity_vs_price.py
+    __init__.py
+  tester_results/
+    impermanent-loss/
+      30bps_LVR.png
+      30bps.png
+      5bps_LVR.png
+      5bps.png
+    implied-volatility/
+      30bps.png
+      5bps.png
+    liquidity-profile/
+      first_results/
+        30bp_LvsP.png
+        30bp_surface_abs.png
+        30bp_surface_ticks.png
+        30bp_surface.png
+        5bp_LvsP.png
+        5bp_surface_abs.png
+        5bp_surface_ticks.png
+        5bp_surface.png
+      USDC_USDT/
+        5bp_LvsP.png
+        5bp_surface_abs.png
+        5bp_surface_ticks.png
+        5bp_surface.png
+      WBTC_WETH/
+        5bp_LvsP.png
+        5bp_surface_abs.png
+        5bp_surface_ticks.png
+        5bp_surface.png
+      WETH_USDC/
+        5bp_LvsP.png
+        5bp_surface_abs.png
+        5bp_surface_ticks.png
+        5bp_surface.png
+      WETH_USDT/
+        5bp_LvsP.png
+        5bp_surface_abs.png
+        5bp_surface_ticks.png
+        5bp_surface.png
+      30bp.png
+      5bp.png
+    priced-impermanent-loss/
+      30bps_I.png
+      30bps.png
+      5bps_I.png
+      5bps.png
+  directory_tree.txt
+  liquidity_profile_study.py
+  snapshot_study.py
+latex/
+  assets/
+    AI-usage.tex
+    bibliography.bib
+    commands.tex
+    packages.tex
+    titlepage.tex
+  chapters/
+    abstract.tex
+    introduction.tex
+  images/
+    unipd/
+      logo-light.jpg
+      logo.png
+  AGENTS.md
+  clean.ps1
+  main.pdf
+  main.tex
+.gitignore
+CLAUDE.md
+README.md

@@ -1,0 +1,91 @@
+% assets/titlepage.tex
+% !TEX root = ../main.tex
+
+\makeatletter
+
+% ------------------------------------------------------------
+% Metadata commands
+
+\providecommand{\advisor}[1]{\gdef\@advisor{#1}}
+\providecommand{\mastername}[1]{\gdef\@mastername{#1}}
+\providecommand{\studentId}[1]{\gdef\@studentId{#1}}
+\providecommand{\coadvisorOne}[1]{\gdef\@coadvisorOne{#1}}
+\providecommand{\coadvisorsUniversity}[1]{\gdef\@coadvisorsUniversity{#1}}
+\providecommand{\academicYear}[1]{\gdef\@academicYear{#1}}
+\providecommand{\department}[1]{\gdef\@department{#1}}
+\providecommand{\university}[1]{\gdef\@university{#1}}
+
+% Safe defaults. Override them in the metadata block below.
+\title{Thesis Title}
+\author{Giorgio Cottini}
+\university{Università degli Studi di Padova}
+\department{Department of Mathematics ``Tullio Levi-Civita''}
+\mastername{Computational Finance}
+\advisor{Fulvio Baldovin}
+\coadvisorOne{Claudio Tebaldi}
+\coadvisorsUniversity{Università Commerciale Luigi Bocconi}
+\studentId{2140740}
+\academicYear{2025--2026}
+
+% ------------------------------------------------------------
+
+\providecolor{SchoolColor}{rgb}{0.71, 0, 0.106} % UNIPD red
+\providecolor{chaptergrey}{rgb}{0.61, 0, 0.09}
+\providecolor{midgrey}{rgb}{0.4, 0.4, 0.4}
+
+% ------------------------------------------------------------
+% Title page command
+
+\newcommand{\makeunipdtitlepage}{%
+    \thispagestyle{empty}%
+    \setcounter{page}{1}%
+    \begin{center}%
+        \vbox to0pt{\vbox to\textheight{\vfill\includegraphics[width=11.5cm]{images/unipd/logo-light}\vfill}\vss}% % chktex 1
+
+        \begin{figure}[!ht]%
+            \centering%
+            \includegraphics[height=2.5cm]{images/unipd/logo}%
+        \end{figure}%
+
+        \setstretch{1.5}%
+
+        \scshape{\huge{\bfseries{\@university}}} \\
+        \line(1, 0){400} \\
+        \scshape{\large{\@department}} \\
+        \vspace{3pt}%
+        \scshape{\large{\textit{Master Thesis in \@mastername}}} \\
+
+        \vspace{2pt}%
+
+        \setstretch{2.5}%
+
+        \vspace{10pt}%
+        \scshape{\LARGE{\bfseries{\textcolor{SchoolColor}{\@title}}}} \normalsize \\
+        \vspace{15pt}%
+
+        \setstretch{1.2}%
+
+        \vfill%
+        \begin{normalsize}%
+            \begin{flushleft}%
+                \textit{Supervisor} \hfill \textit{Master Candidate}\\
+                \vspace{1pt}%
+                \@advisor\hfill \@author\\
+                \@university\\
+                \vspace{6pt}%
+                \textit{Co-supervisor} \hfill \textit{Student ID}\\
+                \@coadvisorOne\hfill \@studentId\\
+                \@coadvisorsUniversity\\
+                \vspace{30pt}%
+                \centering%
+                \large{\textit{Academic Year} \\ \@academicYear}%
+            \end{flushleft}%
+        \end{normalsize}%
+
+    \end{center}%
+    \vspace*{\fill}%
+    \singlespacing%
+    \cleardoublepage%
+}
+
+\makeatother

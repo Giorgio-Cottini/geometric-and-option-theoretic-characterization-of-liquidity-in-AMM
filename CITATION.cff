@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this codebase, please cite it as below."
+title: "CFMM Liquidity Research"
+type: software
+authors:
+  - family-names: Cottini
+    given-names: Giorgio
+    email: cottinigiorgio@gmail.com
+    affiliation: University of Padova
+repository-code: "https://github.com/Giorgio-Cottini/geometric-and-option-theoretic-characterization-of-liquidity-in-AMM"
+license: MIT

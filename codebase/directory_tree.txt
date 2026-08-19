@@ -1,0 +1,895 @@
+codebase/
+├── __pycache__/
+│   ├── cev_elasticity_study.cpython-312.pyc
+│   ├── functional_pca_study.cpython-312.pyc
+│   ├── lvr_pathwise_study.cpython-312.pyc
+│   └── price_impact_study.cpython-312.pyc
+├── data/
+│   ├── processed/
+│   │   └── liquidity/
+│   │       ├── USDC_USDT/
+│   │       │   └── 1bp_ticks.parquet
+│   │       ├── WBTC_USDT/
+│   │       │   ├── 30bp_ticks.parquet
+│   │       │   └── 5bp_ticks.parquet
+│   │       ├── WBTC_WETH/
+│   │       │   ├── 30bp_ticks.parquet
+│   │       │   └── 5bp_ticks.parquet
+│   │       ├── WETH_USDC/
+│   │       │   ├── 1bp_ticks.parquet
+│   │       │   ├── 30bp_ticks.parquet
+│   │       │   └── 5bp_ticks.parquet
+│   │       └── WETH_USDT/
+│   │           ├── 1bp_ticks.parquet
+│   │           ├── 30bp_ticks.parquet
+│   │           └── 5bp_ticks.parquet
+│   ├── raw/
+│   │   ├── liquidity/
+│   │   │   ├── USDC_USDT/
+│   │   │   │   ├── 1bp_pool_states.parquet
+│   │   │   │   └── 1bp_ticks.parquet
+│   │   │   ├── WBTC_USDT/
+│   │   │   │   ├── 30bp_pool_states.parquet
+│   │   │   │   ├── 30bp_ticks.parquet
+│   │   │   │   ├── 5bp_pool_states.parquet
+│   │   │   │   └── 5bp_ticks.parquet
+│   │   │   ├── WBTC_WETH/
+│   │   │   │   ├── 30bp_pool_states.parquet
+│   │   │   │   ├── 30bp_ticks.parquet
+│   │   │   │   ├── 5bp_pool_states.parquet
+│   │   │   │   └── 5bp_ticks.parquet
+│   │   │   ├── WETH_USDC/
+│   │   │   │   ├── 1bp_pool_states.parquet
+│   │   │   │   ├── 1bp_ticks.parquet
+│   │   │   │   ├── 30bp_pool_states.parquet
+│   │   │   │   ├── 30bp_ticks.parquet
+│   │   │   │   ├── 5bp_pool_states.parquet
+│   │   │   │   └── 5bp_ticks.parquet
+│   │   │   └── WETH_USDT/
+│   │   │       ├── 1bp_pool_states.parquet
+│   │   │       ├── 1bp_ticks.parquet
+│   │   │       ├── 30bp_pool_states.parquet
+│   │   │       ├── 30bp_ticks.parquet
+│   │   │       ├── 5bp_pool_states.parquet
+│   │   │       └── 5bp_ticks.parquet
+│   │   └── snapshot/
+│   │       ├── liquidity/
+│   │       │   ├── eth_usdc_30bp_pool_state.json
+│   │       │   ├── eth_usdc_30bp_ticks_page0.json
+│   │       │   ├── eth_usdc_30bp_ticks_page1.json
+│   │       │   ├── eth_usdc_5bp_pool_state.json
+│   │       │   ├── eth_usdc_5bp_ticks_page0.json
+│   │       │   ├── eth_usdc_5bp_ticks_page1.json
+│   │       │   ├── eth_usdc_5bp_ticks_page2.json
+│   │       │   └── eth_usdc_5bp_ticks_page3.json
+│   │       └── options/
+│   │           └── 1773510257555_eth_options_book_summary.json
+│   └── block_timestamps.parquet
+├── data_extraction/
+│   ├── __pycache__/
+│   │   └── config.cpython-312.pyc
+│   ├── .env
+│   ├── config.py
+│   ├── discover_pools.py
+│   ├── download_liquidity_evolution.py
+│   ├── download_snapshot.ps1
+│   └── verify_dataset.py
+├── graphify-out/
+│   ├── 2026-08-12/
+│   │   ├── .graphify_labels.json
+│   │   ├── GRAPH_REPORT.md
+│   │   ├── cost.json
+│   │   ├── graph.json
+│   │   └── manifest.json
+│   ├── cache/
+│   │   ├── ast/
+│   │   │   └── v0.8.39/
+│   │   │       ├── 04371b6ad9cdd6d5b3e8d44380675c1b233d724ee68f0927ec6f2ceee1a5eae5.json
+│   │   │       ├── 099905122cb5e67bf80d67efd1024158656b18be56b4843343a07804c51df7dd.json
+│   │   │       ├── 0cbaa7ba6aaf017935e540e3722857c612047a46300c899c75ed892b6b52e783.json
+│   │   │       ├── 0cc6f3480a4dec23f0111dec51e0d38f59d6860a56dac6421ab9deb8903186a9.json
+│   │   │       ├── 11c6f85e3f565d3b7306e2409c0cf674c72d389a05a679e0f8da452d6d45421d.json
+│   │   │       ├── 13972ed50f70b699a0e7ea0b86c89aca5f20e7d3045b0787a83add1df2f71e3f.json
+│   │   │       ├── 14cda65336ce5f7c80836a2498dc5d220b380b3d1216efa8572f980a608f6422.json
+│   │   │       ├── 16b39eadd76040affc6b3397869bcb3be8931b2e28185deb4f3c87f57b78ff14.json
+│   │   │       ├── 1def2ae5053f703fa648b0d8bf04b615c7680efdb57c43bb30860d376d8ce6f1.json
+│   │   │       ├── 22895e0e3f4f9729bb5b7c8eb9db90f2eeeb1311cba8ae2653c15cd15a75d2ca.json
+│   │   │       ├── 2c743cc3a4ba9fc9e914303e5437a5a8b35701888879b1fffcdd8e1ee9660c7c.json
+│   │   │       ├── 2d6a16d805390c41844a94382b341cf004367d22687feae84c018399f2dfd600.json
+│   │   │       ├── 32a895958e195c762fa968ec1e0e256889d1638fa3702df99b30dbe3b588acf3.json
+│   │   │       ├── 32bb89b3c2dfb3a58ecd32cd9de677ca555e65deaecc41c25d6d6bbfc92290d6.json
+│   │   │       ├── 367997b6c3194bfc0e53f85c0a8138376f6cacd25de31226ed99df8160bc6182.json
+│   │   │       ├── 3d1e7305134fd9c4a02ae8be75c2a6a2af0745adbd4bd1356b5a7674912e3473.json
+│   │   │       ├── 3e1bd574bf9736698301098c50af5dbb3151a1b703fd05ba20540cc336f37372.json
+│   │   │       ├── 3e4c52555c1a1d74d4b5019de300f14dd63b4cfaf20d1e1ead2c7419075a204f.json
+│   │   │       ├── 3e4e5b61bce2b71d1f7a49add7612d5d864516e4430e8f0765eb6d7b8f1a90dc.json
+│   │   │       ├── 40224aedec217cd5eef8ac47df38d2a31e07366df8930e338c881a156522d819.json
+│   │   │       ├── 4244e3986b993076cdf588ce5f0ca02205677ebd2ab9b9984f44dbee11909f03.json
+│   │   │       ├── 4451451ded07418859bcad484a79ae28794bcd34d455108c90a1ce463019cb0c.json
+│   │   │       ├── 45edf305666fa14b268973ac75830eefa0e1b8a4ab150c2e95465c49b85af043.json
+│   │   │       ├── 49f63e0c326375ee2d5511d7a234b3452f11a957af542e137964ed82bf59c925.json
+│   │   │       ├── 4a432e1e55d0266726de7780be8255f3165103c84aed83ef90dc0cea86001714.json
+│   │   │       ├── 4b83be01c118efbe77ec9ee1cc9496ce60a5fc9f5983361058cd7b38b3381335.json
+│   │   │       ├── 4ccb95562aadfbea3af3732cbabb6d24b9756e4da29e691a9645e8161610e611.json
+│   │   │       ├── 4f2662631429f3adfbe56b100abb3bb1cf4c6e613ed986e8c40548dc1c8171b1.json
+│   │   │       ├── 4febbbe9cd2c8d782598481503d13bc5e0e665bd42ac3f5ba083e9410b194441.json
+│   │   │       ├── 51bd7c864eaf4b17129ed3262b8fe4c5bab7bec04febd7f9c7ac571b0487d3fe.json
+│   │   │       ├── 5725a420537629d180ee6945882ca9f963d4746249572cee4c4b061f90cc794a.json
+│   │   │       ├── 5917f81480ad8dd23e838dfa807014e843c1805150d581f6f4ed047180337f27.json
+│   │   │       ├── 591d90fe7c7f5321e861f3888918a29c93ad4d9de3eb470598dca4a22e3a5902.json
+│   │   │       ├── 59906c8c8513f3312d007c99c3457cd7a2863097c301aaa49e3cd98b03d85884.json
+│   │   │       ├── 5b29951a792a2410100715df658f5afc1877ff4f50cb606fc8045cf7e2ded410.json
+│   │   │       ├── 5e7d7aba76991734e0256711f1c25fe038c3bf5166e975cd2f7a1f7df00958b7.json
+│   │   │       ├── 5f2bca7ec565cd2cabf49361b687d6ae966fa31dd1a5ceada5425c675794524e.json
+│   │   │       ├── 634b77e27b6a441673583d898cb976f56d8241c21a889a0e824ef70cb45b70db.json
+│   │   │       ├── 6edd2cace4c59c90accac10ea19298902c23f94b950d95af58a2828c14aa0a00.json
+│   │   │       ├── 716c0c4f6963c3be968fbe0832d3516f0f3235bfee2a7dadd13dcf432a3cd672.json
+│   │   │       ├── 7573000dd13ffaa6b13a80a347fe50a69c2cae12b99ea507957edbdac173e655.json
+│   │   │       ├── 76b36e18626c147546a6c673258f9ed2721f96187ba8d47741ca643d6c7d43e9.json
+│   │   │       ├── 78465bffbbd8f838d38d8a76aeaeda4bcaf1d0379e25a7214b9c43031c4eb97d.json
+│   │   │       ├── 7eb491051812aaf385fe3ea642b4e1c28c67e3a732e832221c4b8115d151f886.json
+│   │   │       ├── 805dfc8883cd56a706b279d285c934865a058f056c89b08770acb0ee7f5221c4.json
+│   │   │       ├── 850d42b4d145b7542f98e4bfa9078d480b717457dc861d9b38f9a480c84e969b.json
+│   │   │       ├── 88ba1df0dc4f537761cad3af43e778637a85e352f0f0078a3a38700b0d599939.json
+│   │   │       ├── 947bb5896397c3de9f816e75e5d28464ddf8339c0b73663027f6d6802dc0d6a8.json
+│   │   │       ├── 9e75ccaca859f16f165691e938e88e6d41a7eb216334a2429cb562d6bfa48eff.json
+│   │   │       ├── 9ed08f25d98553c50ab937573cb93ff2e92ea38a9c05675b9b58dc239b7b1950.json
+│   │   │       ├── a671b010cccbe8b14420a98b5bcb9e47a9b45512ea6d906382fb111694711643.json
+│   │   │       ├── a722288ed16c1be8cb3ecf38c953c8648c762f7ebfa1bee1a6d015c5f4e07bd1.json
+│   │   │       ├── a937df371a670d1d66a523719c816a3309dab51a28fc7daafdc8d060cbf0ae61.json
+│   │   │       ├── abde9de663e070655fc4cea568493614f860a337fec4bd431ff87e6178c68e12.json
+│   │   │       ├── acb9781e4925979f3ba56821b11b894f7cd9e13e2cac0d44b9feb11d6c1c0426.json
+│   │   │       ├── ae09db0ce9e96052ffe774d915d8e329bbe8728786d9e1d49c9461a72e567625.json
+│   │   │       ├── b0861228dcc87e32b8d92ce301eb59219e1aa3e223ad853fa9c300edae440018.json
+│   │   │       ├── b86ddd13d3fa91a94bba48054c6dc3425bc838ebb27454b44dbc240228d3e91f.json
+│   │   │       ├── b975aee93cb7d11e9a5c7cd1fc0dfec7db40f5dc72295e7d013efae4549bb516.json
+│   │   │       ├── ba6b31a7f610d114e6eee10e16f7ab7126f1de712f7385d2d04269df8dec662b.json
+│   │   │       ├── c6f2807dafbe34947085978f933e0c555e39fe0163e19d0dc0c48c17fa369204.json
+│   │   │       ├── c8a71053445b9031342a1cdaa765179e89932bc7cf2eeb8c9d6fc3bf2e28cbf7.json
+│   │   │       ├── cb587d6d7c1ba10382b22b700a65e44d5862c314f191937aa68693c09cd11618.json
+│   │   │       ├── cfdad2e6ec61c882f868747aa206106c7c9771d046a2f8dd7a0e86bf5e2271fd.json
+│   │   │       ├── d0ab2e56f8144d703b3cf695453d2532bc76f17b98971f689c03475df15e6197.json
+│   │   │       ├── d15e6a311002ac4846f21d513e0de70d4c89930882fa57a62fd1660829db5110.json
+│   │   │       ├── dacd65c307ecb0bc4138bb0f9aa768391f1a1f6d82abe0a0ccaad09a38ebe48a.json
+│   │   │       ├── e108995de8df579c1c374393d0b52d04541253f05a4168ba62573d49fef4ac5c.json
+│   │   │       ├── e3b1fc8dbec3b7ac5858ab8663fb0ee7f419108604794075e5bd519a3c3ffc56.json
+│   │   │       ├── e502107c7d660a3c1bbf3b60214f45938145626971e0490cb357ad71d3a5f298.json
+│   │   │       ├── e6f24e26f6b02db2edc7282672d91495ce531d724314bb243081e794a77cd63b.json
+│   │   │       ├── e8188882a48603f711c371d8d0229cfa25cf6e28ec3e1ac5e3ad206f1771400a.json
+│   │   │       ├── ea14dc9eb6d86426ca72ab5d1fd458f6243e817b46dbd11003589bf01b95609e.json
+│   │   │       ├── f1daea4e7a8c7bac1972cc78e295ea8088ffee3797c4f5d228447658585fb168.json
+│   │   │       ├── f23a32bc184d12787c8eb3b1a7b0f28ae8b6793dfa17af0e917aa208db4cef7f.json
+│   │   │       ├── f2a74e726c546cbbe626d95d574b0b3ee536ddc5466b22a8b70594c80fbc19b7.json
+│   │   │       ├── f2ddc4c32d3ace6eb5786bbe136168ec6286d22339b0c2b5fba5c5411ba3db33.json
+│   │   │       ├── f5aa45a73fa9bd9c753ed80250177caec4426990ac30e7ef4094f5775d9094c4.json
+│   │   │       └── f9290622572f6b880c8d4dbe4c536869bff8f3a24ecf8fb9e7661206e149ffbc.json
+│   │   ├── semantic/
+│   │   │   ├── 00a57c0b9b3810b44b1959b1a6ae4ef6fcfd1b9ca86426fe7b5f6d87b5f43f45.json
+│   │   │   ├── 00a63f6a53f53ba95d8f56308030c65cacb5a75f7d1c447656bea2102aa614f2.json
+│   │   │   ├── 00e98c4cb7a7e389e81794ca4e59646de45876ed6134af9435444b588a9c7ce5.json
+│   │   │   ├── 01aa58ab20323190cddb46c4071f0a87db6d21ce65f6a232de3fd305df029f94.json
+│   │   │   ├── 02c1d4f098a92246fb368cfe0215d9065e6121ae130842de336216aae66485a4.json
+│   │   │   ├── 04931303db7a8360b69229c85c8b94086e7bfdafec7fd347f71555067ee3f884.json
+│   │   │   ├── 07944fd2019a40411424293662851d7bbdb8e9f7c3001f10581fe5b02fbb28b5.json
+│   │   │   ├── 07ecd0b9ca9c92eef50df6a36ec7d793f4320b826549d0a8141bd7d8a7b9e000.json
+│   │   │   ├── 088f0dfca1883f713c29045aac83d547bf6ab0d192f3297032318703f5e8e0f6.json
+│   │   │   ├── 0920d04287fbe9af160be4efa38164ebc99971d1d0c8017f6e8658d31d60b6f4.json
+│   │   │   ├── 095a0078c2a0326714ff416814121f11586c6940afcd2c943d697c617c1c68b3.json
+│   │   │   ├── 0b0614cb6afe4c1643fe17b15a8ec1ea5aadc5898faf7b7541cb22f77998aa3d.json
+│   │   │   ├── 0b9685823cb5038865f06c7de90d3028ec6188482c5879f1e7fd0fd5c7e31161.json
+│   │   │   ├── 0cbaa7ba6aaf017935e540e3722857c612047a46300c899c75ed892b6b52e783.json
+│   │   │   ├── 0d3ef4289d7b23c966c7930f36ea8fc732bf14b30377c58b5db728631d1f02fc.json
+│   │   │   ├── 0ed71e8716d536682068cba9a42e26b5d26e1714b735bec4eeb857af967dacf4.json
+│   │   │   ├── 110169fcbbd488d5107082ceee6d79a9a0bafa4ff49207e4f0c5775c0855021d.json
+│   │   │   ├── 11b8ea32e53ac51104cda0497a94db3c19535d60851a798d6ca51ce2a202ac58.json
+│   │   │   ├── 11cdf921a78caa16366411410b0d4074cb4ed4c0443907a59d2fee471c0613ff.json
+│   │   │   ├── 11d5c4d656f11903682615faa1607ce84d053fce1dc2539a8b61f15adb141ecb.json
+│   │   │   ├── 1266cf9cfc5d23dbdf85d74813c810d2b04e9e62772917ecaf7e9c7dccc94f2d.json
+│   │   │   ├── 16b39eadd76040affc6b3397869bcb3be8931b2e28185deb4f3c87f57b78ff14.json
+│   │   │   ├── 18e61728c7f004488016b278f5effcd4c83317514215c4732f9fa668c9be5145.json
+│   │   │   ├── 1990880a8812167802573f4f71647cbb4f7c2d44be271e9c62396e0d4f8016a8.json
+│   │   │   ├── 19d5cc6a681001ce02f843ddf18c106a30202f89b45be08ee570582d7f94a4b8.json
+│   │   │   ├── 1ca0c20616e07b9828417cb8f40d191c8d11607284030a8370d7eb823dfeac12.json
+│   │   │   ├── 1e3cfcf642a7fe04dcbd62af3d5e6bfba106f083f845705cbbbdd8be0b652dff.json
+│   │   │   ├── 1eba92db7e0a770b390283f96a3e9a7af52543f42f56c941e0ee1fcf0e992c0c.json
+│   │   │   ├── 1ec929d260ef96de9715632060c979ed6771271c875f4572c942040427474f12.json
+│   │   │   ├── 1f08fffefa1b25bb68d0dbd41d3687866e32652f6401e1f12728ede7fdf2f477.json
+│   │   │   ├── 20c03cb6bce580a59c9f0c48a53b36a98538880d38b647cd0f3f8e10eb1f7712.json
+│   │   │   ├── 212a4955160a9db5d4091af93ed2f9f6b59fcdd9856888038400350e5a75cd6e.json
+│   │   │   ├── 2140734cb36d0e9a4691bfb66e164bddc7b27d703a1704d921c840aa64f81500.json
+│   │   │   ├── 219403a454c44d61e7cf0232b2429bbba41ced0085a8f7733f6061712137f276.json
+│   │   │   ├── 23276b7dbfac15d1e80f0487521396ce3762ba5f389569bfe5a49a36fc91b62f.json
+│   │   │   ├── 24da7823a65aeb3897def30644e1890c3f572f36f4ddd98f16b5261af8465e0f.json
+│   │   │   ├── 267cfeb9e55027d098a59896b38cd38120e79006e1c5d6af8a33385a4289113c.json
+│   │   │   ├── 26de6d1fa423667e48dbc02203fa26c266a19337a9dc0b40f0ec58c12479b211.json
+│   │   │   ├── 27a49acce3fc31ce48a1e4bc6cebf2a0a5519e7bcab356d772976ec8c2b0e455.json
+│   │   │   ├── 27c8f2e9f675b2450668efb34cbbfe7724ea9389f1e78204b9e966ca9ce41283.json
+│   │   │   ├── 28a86084d53cca77a118cac06e3d535ea1ad4e33bf50dda8aab8053d46c06171.json
+│   │   │   ├── 28c46f421a42ec2516265eec8a70a08424d0fd5349552f13ef0c7e3ed00322bb.json
+│   │   │   ├── 299a4b23bd0b613d73e17ef4fe5f017e63eeed332ddb8e7f026bba17840bf256.json
+│   │   │   ├── 29a634635f89aebbce69bb3ee3b6c523b5d8ff1971c548895345d0c8eee2ad8d.json
+│   │   │   ├── 29fb7576ce08cca8de47a4282271870fe419b68fb1ba15abcebcdc8b287e1811.json
+│   │   │   ├── 2c2fb3a28952099a263cc8715c1119db2f627d5f271b7c54b33cdb88735b3166.json
+│   │   │   ├── 2f1123d4e54fe015f7eac1ca3f49f19814f6226dc78cca1da5172e4d322e5f70.json
+│   │   │   ├── 2f6673418c652f936c57c1ed4f50da3c02417f615e4505f1c19a91bee45b07c6.json
+│   │   │   ├── 30990eef3a9add5e58c128cf3f2c498454108b23c70fb219a30a4d9ac91a2d76.json
+│   │   │   ├── 321f893401e2f9b16bca03332d4cc39d1f95d953b3213f8ae58a9641d360a649.json
+│   │   │   ├── 3273883e229dc6a75f4fe536156a48323b041a9c197fd4ad262bd7f7443fc287.json
+│   │   │   ├── 35034ad0d679b1fc493ace740f3224ae00f1502f6ec5f3b98a84e0aa73f373cd.json
+│   │   │   ├── 373e64f96c3478fe99b9c3e0e38e7a7992e6085b8c84cd42d3afacf00d0de837.json
+│   │   │   ├── 396015f34c78f16353a8bbbae3c7a444fbdce935f9da58caae1f94fe34d59501.json
+│   │   │   ├── 39fd3ea0dbc1ab880f299da72b1043909428cb980123c442a23612a6b5be88fb.json
+│   │   │   ├── 3a05fb096dd7aabd6871ca63ca8b017c7d2fa48276085ef03cc8a281f732b38d.json
+│   │   │   ├── 3cda11ca80ce52ce09de7cc7ee27cf81e696655cb423ce1badd1829ec0e6ed18.json
+│   │   │   ├── 3e3e331d59fa865ff43c03bd85e2bc0b66d1221639c5b428b961b63759fee12d.json
+│   │   │   ├── 407de62021257cec4e3af9635d9fac98eb92cd8190d6658d09a0c579eeea3be0.json
+│   │   │   ├── 4219102a9ff3ce264f1a473b7ef91d24e4972efb964ac842fc19128f2ee8c47e.json
+│   │   │   ├── 4297f4ccc729ce332d77dbb5054fd2df6a64cb57ddd770dfc185788e66a5eaf5.json
+│   │   │   ├── 42d720ea33f0f4eda3b4ca86a593a471a9710109505924ef8c7ee5f056953d7a.json
+│   │   │   ├── 42fc6d2b7c24dd6237254401400748109c933e2c670dd98b6f40559fcd1ca938.json
+│   │   │   ├── 4447fc82f2f5c8da31cc6544ddc749c47ecee38ba89d41b799958d7a8b08a39a.json
+│   │   │   ├── 44cf5cef8b708ec2e806ced409ee366dbeae9df880b95ce5a37151fc3ba62b95.json
+│   │   │   ├── 46181ffca91e3434bf9c6bc7f21e02a39738cd13d71ab882136e2dda17cc9bde.json
+│   │   │   ├── 47a2ede30171cbf3fae75e0ddada20f41ea7dff0e6ff3a40e8f4bf968a12e024.json
+│   │   │   ├── 48fb51a58cdc6ae1dea3c7cf03e73c1845eb6a28f0f015eb75f6b1845e3d2db3.json
+│   │   │   ├── 4ad5fa8ae16c69095c883bd2f3bbf7225ea41e2b937dee3cbbc3b5bc16ec087a.json
+│   │   │   ├── 4f3c3216e9a8b1075ab1979ecb715f23678b33615f0d5545a5decc94f721e33f.json
+│   │   │   ├── 50ddba95aca282375a9278ba581ad13cb58ab36fa56bedf6b161d49a5335c1cd.json
+│   │   │   ├── 542589ffcf397a79d19f99443884cb19341699e5e7da23aedc4f3385bae2b0c6.json
+│   │   │   ├── 54f73504c83481fc2779b5113be334378e33e1f9111b3ff449b562d73a2eeeb0.json
+│   │   │   ├── 5525af5a5ae298a20568708a154847da2cb5e3bff0e449073a356f2e91665e29.json
+│   │   │   ├── 553a8b3f7f8d0083dc9b22dba250f8ecc7e7c9b80496ab0031aab5d0dcf06fd3.json
+│   │   │   ├── 565d5040db09af87d5687bada78bfc974cc6fc3c6981665e61fb42bc44d0f0ae.json
+│   │   │   ├── 57a1879354e3f7d29e53746f2b37027e378f2a2af03c72c88475f7242da77ba3.json
+│   │   │   ├── 58337563e6106657fdc76833c38067ea287f5791977c2a40821f785a44fe7f78.json
+│   │   │   ├── 588ffe11b1c093fcd51849bfd9e45317f98f9ddc8e6a375c87912a6d3122dc31.json
+│   │   │   ├── 5b645df01135ddfbc70a8c14c860f2e65247da699635788a8557316a76c58e79.json
+│   │   │   ├── 5be07367bb62e9aba951aa0ad9f08384556433ac86913d95fb8a8e25140d4868.json
+│   │   │   ├── 5d3e1148c21ac0c06a7ffed251555d82c99492ae47f6b1bdc7fe284aa2e316da.json
+│   │   │   ├── 5dd0e5ffa3c6d9e26255f2c6daaa74ccde66d7a3f1b87917aa0f0cd5991c1944.json
+│   │   │   ├── 5e29db797d9a5124de7f8661474e58011ea8668eae9b8416e11ce170939e98f8.json
+│   │   │   ├── 626baf887a9e39874a8e5fee7e56514c5993fd149a63a554dfe7f26d80c39170.json
+│   │   │   ├── 638a145a6097b32dad12f202310942b144290310999206b8d03cb337a9462c6c.json
+│   │   │   ├── 63bedef24f7285fc4a07c05db12dcd48c36df9ce6a9ead76e8e949cb456d34bc.json
+│   │   │   ├── 658414eaf259c707b6934908afe8d05b6a87e579abc7041b365db3ed96858c35.json
+│   │   │   ├── 662cf5f7edb29447ba9f5eea46786ea8fc54ba5ad5317e781409bc7bcf62d37f.json
+│   │   │   ├── 681694bc0d3fcd23b35aa93fa5ca0119a84831e4281a6e35b0bc53646b370b7f.json
+│   │   │   ├── 686d0d0cea0e57efeeb74c60811db71b2de1feaea53da06d941bb7e7da36d0b9.json
+│   │   │   ├── 6b52d86efc55d9a7ae6befcb76d5df95ecf7041a86e15c69f20b12ef23b64d7e.json
+│   │   │   ├── 6baed1f118589f5d270f1d30fc2ad473e110fd5fbbfdb06dca0bda0b1191289d.json
+│   │   │   ├── 6d7a8b86b73cc7d3f795fc398fe2620267b4c9f61f1652adde41a95526359213.json
+│   │   │   ├── 6f5def37b7dae4eeb2c2077840ce0dd7187d75fd506dbb7b4e176daf920beae0.json
+│   │   │   ├── 731c9e41f24637b2689e332cf0a3f612a263569cc240eae5eff1b2b67c82effb.json
+│   │   │   ├── 73ac697c918b63820f7a4d189e2de5d3bd552c8fc3974cb7f24b003cb3b8e070.json
+│   │   │   ├── 74d572dbea755ac01060602b2c9a803ffc132dbb5f67109fc02aa8f5a968a015.json
+│   │   │   ├── 756357f17ecc71cf69a35454c5431ad7751c98a72210644bf737ebbe81ab01ac.json
+│   │   │   ├── 759af2623e4df5af4785db29a02e0356d713a17348500564991ede42edb10ceb.json
+│   │   │   ├── 761568b9d66d25a669e65453431366b1be1d2d0212f26fd5c03cf9dfbe4db44c.json
+│   │   │   ├── 76c311271160bdd0f9265eaea4df915a5afef21813f8b0d9d937e10bff4d7084.json
+│   │   │   ├── 76d258653232dc383edd79166de8bc310bc38e0b66d776ee2184ac89a9f0e481.json
+│   │   │   ├── 77f3c19944ab804be1a54d9ddb3d4ab23f1687c0670a90650cfafe3d47b39dcc.json
+│   │   │   ├── 785fb188d49a5b1fb8589371ab5856795b8f42e6c827d22f0f53c3e0f8514083.json
+│   │   │   ├── 78699af9f81f3b4a72fe01077d1f97352ea0db9b211d070f35883b7525ce93b1.json
+│   │   │   ├── 78774d18e2d0009c033686c0a8cdd2b51aba191b24ec2b63c11e5f5b846eb77e.json
+│   │   │   ├── 78f2fae0e61700dab865090d8936fe0084d4fae4823741d2c101f8eed06565e1.json
+│   │   │   ├── 791662d516aa31b8957a52f35c8087d970ad57d0ac1345a8268792b13e8c23c6.json
+│   │   │   ├── 7b84561ee5f6c370cee14508fc70f1c36844d8f8cfc74cb7a3e851580811bf09.json
+│   │   │   ├── 7c76af284a719d0b1eb1f929cc8570f44c0380ff6141b60b737f091e1e6be886.json
+│   │   │   ├── 7cc8be656c5bda7264929eab5286d62d5d92fd2b83ceded5c695a5a192ac5206.json
+│   │   │   ├── 7e1600b89d20171903096000ee6e8214e8a5e7525e530afac077a0cb83c7b6a1.json
+│   │   │   ├── 80ace33ca6793e325443e795327977666375acb5ce62a4015d3fd4003a77764d.json
+│   │   │   ├── 810e595399e911cf0754c04787996bcea12c7ee399112b6275e8a19e8f246d19.json
+│   │   │   ├── 83e637f07ce5d4ee6046257dc65244299cc27548f5c31fbefa1fce2ffabe2f9b.json
+│   │   │   ├── 86629de1cfbb28b6f5e27f4af41082576647de2109bdfe536fc6830c0b1c6d7e.json
+│   │   │   ├── 880486d4a42da19c5258cb1565eab28c99153c3e35257cd1def151fe1c895e8f.json
+│   │   │   ├── 8b17d968544c5c5f1e8aa0a486aca11b0e8160f38ed1480915b39a0a28f383ad.json
+│   │   │   ├── 8bc054593b215ff657dd4bf2da9af451230419af9f4976e4d830f92fd1faa666.json
+│   │   │   ├── 8c7e28248058df2f6133568461397486f64f79777c3a11484dbf366fc7c4639b.json
+│   │   │   ├── 8c99767de81c3177af84c13c6d988ea13f643e1572a443cb9729e956c84e56fd.json
+│   │   │   ├── 8d13f60ad51d53c3038215785872f4fb594e3eb4413de35767b623051ceb6149.json
+│   │   │   ├── 8f34d238c30cf93a322693bc8fde7be73abb406e7bed6f898dcded580c270298.json
+│   │   │   ├── 8f3b06e9735ff7d814aa36cf34c9fa29449be03ceefc865618c58c36cdb58fcb.json
+│   │   │   ├── 902ea26b2810003e87efd36ee2a8c69efda3fbea93af72a7059fbaa51ca126af.json
+│   │   │   ├── 9047e5fedce93a3d0c4c42c86e2544c472d4e272395a0f417a7ffcaa76b27f88.json
+│   │   │   ├── 905c413fd0a0e2ef856057bc53b669eff721fce0cdec12b9eaa496edf897a8ad.json
+│   │   │   ├── 91aec6eab920df5946b2a3ff70463b6315c8cff628c82a164062d7f2a720fe36.json
+│   │   │   ├── 925e157c855d5d6c4239bb5dafb1118ec66f0a6c7b38df4c88cc79e4f1c68828.json
+│   │   │   ├── 982ff36d1682716819ed19fc4acc4d108d5e2fd4c3d68b0c0d0f4f634ff5656a.json
+│   │   │   ├── 98a84ea93977455afb114a779b9ed8c7cbb5f83e9931b1f52b9bdb94515ed256.json
+│   │   │   ├── 994cf8fe4ad3800b3248316c220f8e6d41a9fe069ea4a699da888e4ef987c5ec.json
+│   │   │   ├── 9a58d3f1f55d504078eb772d0f9b1fdc228a34f00ec1d2b71bc722a36c6acf62.json
+│   │   │   ├── 9b4c825781b6c4b3044b1f96777726e09aebc7efd4693174417346c52788403f.json
+│   │   │   ├── 9e015329ddb1938596b0f0acc3313cfefcaf361313ba46e33cf6ffc98c3d766d.json
+│   │   │   ├── 9f3181c72c855d8b0bbac83000fb11e42460069a2d199104c37a091116c4e484.json
+│   │   │   ├── 9ffd2c5f08dbbb00b70c8cb2ee0b0f7d10d3ffd64130c3fec5ef3763f34c348f.json
+│   │   │   ├── a061b4521b3c8202f10f91089369756ad07a8c0ae169209c9b5d9a26c35bbe3f.json
+│   │   │   ├── a1367a41934b1ff382f70e35492c9913c0c0d82453c1969ea5bcaac88eff33b6.json
+│   │   │   ├── a5d1f202135a953a7d3227c23660330c83642e99c94f500a055ee5815abcd9c7.json
+│   │   │   ├── a795b59b0933ca08d5279e8b5f9484ac95b5f7870d98767149ced5c0101d36cd.json
+│   │   │   ├── ac606049142327cc5fe4fea1866ef4be05d8982371b8636ac04c4020976d205e.json
+│   │   │   ├── adf69493affb83d921f6ca12fc95855a3d71cc18ef316553d2115fda6d650c47.json
+│   │   │   ├── ae1294b3f78aa55d8ba698bf0e1c3e51c291cea9d6f0a43138dcea89d72db9a2.json
+│   │   │   ├── aee81e4b8f3c18a9516f9ae8a696dcbb355b610d019a815dac4de203b8e4b5f7.json
+│   │   │   ├── b040cefa244196daf3283e9e6330f5feab22cd1955c8675e49ac7e1fb1383d1b.json
+│   │   │   ├── b05eaaa2cc77a6c58614aeb805714d5ab25b5089e758d0299e895cbea3aef1eb.json
+│   │   │   ├── b21c2b624fd1394c062e2d9e58dd49872df6f38f8fc0046706d9026b37a4da5c.json
+│   │   │   ├── b22699eda077e240eebdba3e01278feb2435d0ccf6ed479fe40617730dcd4483.json
+│   │   │   ├── b306f7f31442965b674f6150c377c41eda3fdbcf74c535f0420100f30f32927b.json
+│   │   │   ├── b369bb2095b252a2018732498932b1f9fb342bf6c7ca8b87203cf9da2989fda0.json
+│   │   │   ├── b3fbcc71895c2ce0d2a2268b89c785430cd21d6b134bda9f1985d3d129fe0b1a.json
+│   │   │   ├── b4146d6af5e2c183e229d733114d86b06b5e0980a7307a92b28ee90a938935a5.json
+│   │   │   ├── b5e8015e6a75de672173732834beca1167ab5ddb7ae456e8f7e8a1ceaee96ac4.json
+│   │   │   ├── b5f84680e0850267aad4b51e117e745240dbda6bd7aa0207c8b894586f67b982.json
+│   │   │   ├── b7bc1d97ad5f396edfafef825c0613b23e425a68ae3f6bc0b7309b39e43fcf58.json
+│   │   │   ├── b7d332cd51fcedc1f5c4af0bd99274d4fbb62acd316b7bd9b07f51741be61b43.json
+│   │   │   ├── b81e1b11ac38ed484f1a77b112444186cab95d5439e5ec2836f78e9bafcbf692.json
+│   │   │   ├── b89ff7e5c31305e01f89d76dfd6b6259baed59a754e3b481064a3015f18c8cb8.json
+│   │   │   ├── ba04ab6fc8a0b1d8f0e4062b444ce8b16553252c0ecc49b6da443754f5b31f96.json
+│   │   │   ├── bdfac5fe821d89c686afef21866674be7fc034204a5ff8f519f92adf6f98ad03.json
+│   │   │   ├── be410a68855fba836cfd963101e4f10a5a236727e3bed22f9d41b43ac4c90e5e.json
+│   │   │   ├── bebf86e4fc141ba21f671b089a91a4e8ac20b760c4c4695aa40270bbcce44d80.json
+│   │   │   ├── c0fcc899d88940c3cd6a8b0933d09eaeb8ee39aecc37f57f7f116a7a45b63faa.json
+│   │   │   ├── c25e25b7da230018fc6c6d1e9790aad6f351abb90059f5ebc37424098447a486.json
+│   │   │   ├── c2c72ed3469fb8bff08c79170f732ce9e187fb908dba0b8c8ce55b1d3afe477d.json
+│   │   │   ├── c435ef2296cafd02ec34ea8b1a359687b412c1e49830b312ec1038b9c16af0f0.json
+│   │   │   ├── c473200b9deef3975775f97dfd059ec7c59420ab8b4fcffc07c300753331a9c3.json
+│   │   │   ├── c64a1058666777d092c3b323128f9a5326bae6ebe4ee4e41a081dc0f322221bb.json
+│   │   │   ├── c7dcc73fadd6977dabd60962e9392451171753a1749a2d1b91b21ecef3b65140.json
+│   │   │   ├── c86cbee4cb7994b1980c5536653256dddf223596e798e4a599eae9c58417c4dd.json
+│   │   │   ├── c989f420a9b94e145cd24e529837126814ac578ff12564263b5aff228f790d3c.json
+│   │   │   ├── c9a08b8a2e4436ab875c0e5ef2a5c6d2f4bdd92877b45e60c51a91c3c691c085.json
+│   │   │   ├── cb5959f0db884d0ca46d58a48f631c8ddd69a096184e4a0519ed7ebdde5f6dfe.json
+│   │   │   ├── cb6c5c5d743752f2684577fdf2af9d6118a919298d4d7d9837986dbd1757f953.json
+│   │   │   ├── cc224c821fa460bdf05c5a6d66ade1db55dc9f454b1d2dfa5308c161ebee617c.json
+│   │   │   ├── cccbd75688e16fcc3a7be21ec2f303868af614d6087d75b9bf5e716cc6b6a48a.json
+│   │   │   ├── ccd730d28c8ba1176fe799bb5611a253efe9377e78f879834c69f76e01620e3f.json
+│   │   │   ├── cce46ef7b0bd76c6b30e397e8857f19e69e315f135bf97a8366ad7cca183ffe3.json
+│   │   │   ├── cd0704b55917ce42d2d4ef3f5c39ab139843b7505c3aca37e1b8190d36663d4f.json
+│   │   │   ├── cd1940a9d26244db6c862a06c7ce354da060d280aac3205b1be9172e2df9e80e.json
+│   │   │   ├── cd8c405ae6917cea65249472b5e12d0557d0a99f5871dfe549a2448c835d38a0.json
+│   │   │   ├── ce6f84aa963ea0638265bb3b59c98721c776a13e98f1cb1161c32118ceefc28b.json
+│   │   │   ├── ceef89fb0df73c2989890217c62b3ce9dd725bac3ee3e7ac4121f61aa41150c0.json
+│   │   │   ├── cfa779ff118f8afcf12d0ff706ef01dd75f3ab4cb9cdc8742caca0013b25eaa6.json
+│   │   │   ├── cfe7f21b29e822ee405def3a30882e75d4b383bfe1f1777661f3a96d34b02bce.json
+│   │   │   ├── d0b65d2a4226ddfc11b854c87edbabfb6e90b8ff6f9167805751e49c8e35c099.json
+│   │   │   ├── d683280cb2e62718fc762bbeff4d864cdc21683c5cc82775aad7ca838bf7ba89.json
+│   │   │   ├── d80f04fd8858531df18e9716796a1cab6c34ce983ed680c5e606b680dff50db2.json
+│   │   │   ├── d89cca76448117982566b322829b7b18332d8551ce8577e2b34212beaad04d68.json
+│   │   │   ├── d8e31a1fb9b4186a207945aa6c931a26b1d258b125b0ac70b1a0f056e781a020.json
+│   │   │   ├── d91afad2b39ea4314ceedc1c791191894c650fe9a3499c25635e885ef5bd04ce.json
+│   │   │   ├── da2a7bd2359cf5bf3e0d433021fb2e602178ab7afab2e18f9a54876ae8cfa655.json
+│   │   │   ├── db1f26ca4372d5cb19555bacf275c42e48c002b3033c197bfbfa1de23748dabf.json
+│   │   │   ├── e278c58faa9a2b2288cfc2a0a4a76fc18e105706dfb0b80adca24a8b900dfb2b.json
+│   │   │   ├── e452e247ea9a0ed874c6e929f53fe2e64485a4776f2432165316ac6c106550ab.json
+│   │   │   ├── e544dd44a8467b3a3dc6c615db5e176cf88ea24e22f9f5bd0bfb49560680a080.json
+│   │   │   ├── e56f8dc653c8b920fbb76a4b12985a04995d06d346fd45016397dcaaa43a8ee7.json
+│   │   │   ├── e701f7c6980a08725d6af28256198c8bd24e965b6721bb40fb7232fe16ac73eb.json
+│   │   │   ├── e7e75f198d553c69bf0abc1541d5cd4b4a061af0f10677a44a0d15b66e2f4acf.json
+│   │   │   ├── e8d1f0987ee16691594950e17703a2aed18e2398eae660842a4fce51f935bfb8.json
+│   │   │   ├── ef447a9c1ebc8a49dd45923fc2d00232e748cb60cb6ea52174941fdf0014c9da.json
+│   │   │   ├── f10c30f4097a2745ecb0f9b64ab16c0c72e964308e353c4aa4056bfa23dc1662.json
+│   │   │   ├── f288eaac4f3a09190d534a828d0a722697d6848457caeb8b8bfdf336a8419c22.json
+│   │   │   ├── f4800da2e87a4e0b4859eae580ad237ebf349c2544128b33a2cca0760a0d9dfc.json
+│   │   │   ├── f48c5593dfeb9388d170bcbafd9e9371ab7f7c42c9316fc4ac02de0154a501e0.json
+│   │   │   ├── f4a53e925f6d56d7a7a5938e68097bac917dc892a86b72179c33cbdb4b27328d.json
+│   │   │   ├── f5aa45a73fa9bd9c753ed80250177caec4426990ac30e7ef4094f5775d9094c4.json
+│   │   │   ├── f6b8ee898b7551fe8e995344b3262feca262309ca2e61b8e834c557139958ee5.json
+│   │   │   ├── f6efb59f12bd1a3e118130ee98fe7ce5cf44a1bb1b7c470fbd3b40bae3fccee7.json
+│   │   │   ├── f7c9daadec61cfe49a5ea9f8e2e7ff4d4139ac153e91f0a1fe7ae9fe07743f6d.json
+│   │   │   ├── f87ab38883fd22a0772f7eabdd6e6f89d24e8d427f501ec9d4c54bb97a1a30fe.json
+│   │   │   ├── fca77dd3a4af2334443a3d95a48943159d887e9b11c482de2a9370e36e22e3f2.json
+│   │   │   ├── fcf993ad2f37c34a2d59ce1a1129cc5b12469275dfd95ec43a1ad976a2520225.json
+│   │   │   ├── fd8066ab171ffd081c68e544748e5b989119af548a3fe56ad79cb57cdd4bb044.json
+│   │   │   ├── fe3adc5fa87e330ac495f03dadfd50454fd2fe3d164f0337afc5fb7b5b4d3660.json
+│   │   │   ├── ff35a128c25e01edd1740184da36a819b858247c0990b1d79c8712584094db19.json
+│   │   │   └── ffd8c75f4f37189bcc5a4e52c19933f77fde58738e2f578dafe1e4cfc6cd98dc.json
+│   │   └── stat-index.json
+│   ├── .graphify_labels.json
+│   ├── .graphify_python
+│   ├── .graphify_root
+│   ├── GRAPH_REPORT.md
+│   ├── cost.json
+│   ├── graph.html
+│   ├── graph.json
+│   └── manifest.json
+├── results/
+│   ├── cev-elasticity/
+│   │   ├── diagnostic/
+│   │   │   ├── 1bp_USDC_USDT_band-dependence.png
+│   │   │   ├── 1bp_USDC_USDT_local-slope.png
+│   │   │   ├── 1bp_WETH_USDC_band-dependence.png
+│   │   │   ├── 1bp_WETH_USDC_local-slope.png
+│   │   │   ├── 1bp_WETH_USDT_band-dependence.png
+│   │   │   ├── 1bp_WETH_USDT_local-slope.png
+│   │   │   ├── 30bp_WBTC_USDT_band-dependence.png
+│   │   │   ├── 30bp_WBTC_USDT_local-slope.png
+│   │   │   ├── 30bp_WBTC_WETH_band-dependence.png
+│   │   │   ├── 30bp_WBTC_WETH_local-slope.png
+│   │   │   ├── 30bp_WETH_USDC_band-dependence.png
+│   │   │   ├── 30bp_WETH_USDC_local-slope.png
+│   │   │   ├── 30bp_WETH_USDT_band-dependence.png
+│   │   │   ├── 30bp_WETH_USDT_local-slope.png
+│   │   │   ├── 5bp_WBTC_USDT_band-dependence.png
+│   │   │   ├── 5bp_WBTC_USDT_local-slope.png
+│   │   │   ├── 5bp_WBTC_WETH_band-dependence.png
+│   │   │   ├── 5bp_WBTC_WETH_local-slope.png
+│   │   │   ├── 5bp_WETH_USDC_band-dependence.png
+│   │   │   ├── 5bp_WETH_USDC_local-slope.png
+│   │   │   ├── 5bp_WETH_USDT_band-dependence.png
+│   │   │   ├── 5bp_WETH_USDT_local-slope.png
+│   │   │   ├── band_sweep.csv
+│   │   │   ├── coverage.csv
+│   │   │   ├── discussion.md
+│   │   │   ├── full_support_fit.csv
+│   │   │   ├── headline_w.csv
+│   │   │   └── local_slope.csv
+│   │   ├── lvr/
+│   │   │   ├── 1bp_USDC_USDT_lvr-increments.png
+│   │   │   ├── 1bp_WETH_USDC_lvr-increments.png
+│   │   │   ├── 1bp_WETH_USDT_lvr-increments.png
+│   │   │   ├── 30bp_WBTC_USDT_lvr-increments.png
+│   │   │   ├── 30bp_WBTC_WETH_lvr-increments.png
+│   │   │   ├── 30bp_WETH_USDC_lvr-increments.png
+│   │   │   ├── 30bp_WETH_USDT_lvr-increments.png
+│   │   │   ├── 5bp_WBTC_USDT_lvr-increments.png
+│   │   │   ├── 5bp_WBTC_WETH_lvr-increments.png
+│   │   │   ├── 5bp_WETH_USDC_lvr-increments.png
+│   │   │   ├── 5bp_WETH_USDT_lvr-increments.png
+│   │   │   ├── lvr_increments.csv
+│   │   │   ├── lvr_ratio.png
+│   │   │   └── lvr_summary.csv
+│   │   └── README.md
+│   ├── impermanent-loss/
+│   │   ├── 30bps.png
+│   │   ├── 30bps_LVR.png
+│   │   ├── 5bps.png
+│   │   └── 5bps_LVR.png
+│   ├── implied-volatility/
+│   │   ├── 30bps.png
+│   │   └── 5bps.png
+│   ├── liquidity-pipeline/
+│   │   ├── functional-pca/
+│   │   │   ├── 1bp/
+│   │   │   │   ├── WETH_USDC_300_pve.png
+│   │   │   │   ├── WETH_USDC_300_spectral.png
+│   │   │   │   ├── WETH_USDC_400_pve.png
+│   │   │   │   ├── WETH_USDC_400_spectral.png
+│   │   │   │   ├── WETH_USDC_500_pve.png
+│   │   │   │   ├── WETH_USDC_500_spectral.png
+│   │   │   │   ├── WETH_USDC_eigenvectors.png
+│   │   │   │   ├── WETH_USDC_eigenvectors_20250601_20251031.png
+│   │   │   │   ├── WETH_USDT_300_pve.png
+│   │   │   │   ├── WETH_USDT_300_spectral.png
+│   │   │   │   ├── WETH_USDT_400_pve.png
+│   │   │   │   ├── WETH_USDT_400_spectral.png
+│   │   │   │   ├── WETH_USDT_500_pve.png
+│   │   │   │   ├── WETH_USDT_500_spectral.png
+│   │   │   │   ├── WETH_USDT_eigenvectors.png
+│   │   │   │   └── WETH_USDT_eigenvectors_20250601_20251031.png
+│   │   │   ├── 30bp/
+│   │   │   │   ├── WBTC_USDT_eigenvectors.png
+│   │   │   │   ├── WBTC_WETH_300_pve.png
+│   │   │   │   ├── WBTC_WETH_300_spectral.png
+│   │   │   │   ├── WBTC_WETH_400_pve.png
+│   │   │   │   ├── WBTC_WETH_400_spectral.png
+│   │   │   │   ├── WBTC_WETH_500_pve.png
+│   │   │   │   ├── WBTC_WETH_500_spectral.png
+│   │   │   │   ├── WBTC_WETH_eigenvectors.png
+│   │   │   │   ├── WBTC_WETH_eigenvectors_20250601_20251031.png
+│   │   │   │   ├── WETH_USDC_300_pve.png
+│   │   │   │   ├── WETH_USDC_300_spectral.png
+│   │   │   │   ├── WETH_USDC_400_pve.png
+│   │   │   │   ├── WETH_USDC_400_spectral.png
+│   │   │   │   ├── WETH_USDC_500_pve.png
+│   │   │   │   ├── WETH_USDC_500_spectral.png
+│   │   │   │   ├── WETH_USDC_eigenvectors.png
+│   │   │   │   ├── WETH_USDC_eigenvectors_20250601_20251031.png
+│   │   │   │   ├── WETH_USDT_300_pve.png
+│   │   │   │   ├── WETH_USDT_300_spectral.png
+│   │   │   │   ├── WETH_USDT_400_pve.png
+│   │   │   │   ├── WETH_USDT_400_spectral.png
+│   │   │   │   ├── WETH_USDT_500_pve.png
+│   │   │   │   ├── WETH_USDT_500_spectral.png
+│   │   │   │   ├── WETH_USDT_eigenvectors.png
+│   │   │   │   └── WETH_USDT_eigenvectors_20250601_20251031.png
+│   │   │   ├── 5bp/
+│   │   │   │   ├── WBTC_USDT_300_pve.png
+│   │   │   │   ├── WBTC_USDT_300_spectral.png
+│   │   │   │   ├── WBTC_USDT_400_pve.png
+│   │   │   │   ├── WBTC_USDT_400_spectral.png
+│   │   │   │   ├── WBTC_USDT_eigenvectors.png
+│   │   │   │   ├── WBTC_WETH_300_pve.png
+│   │   │   │   ├── WBTC_WETH_300_spectral.png
+│   │   │   │   ├── WBTC_WETH_400_pve.png
+│   │   │   │   ├── WBTC_WETH_400_spectral.png
+│   │   │   │   ├── WBTC_WETH_500_pve.png
+│   │   │   │   ├── WBTC_WETH_500_spectral.png
+│   │   │   │   ├── WBTC_WETH_eigenvectors.png
+│   │   │   │   ├── WBTC_WETH_eigenvectors_20250601_20251031.png
+│   │   │   │   ├── WETH_USDC_300_pve.png
+│   │   │   │   ├── WETH_USDC_300_spectral.png
+│   │   │   │   ├── WETH_USDC_400_pve.png
+│   │   │   │   ├── WETH_USDC_400_spectral.png
+│   │   │   │   ├── WETH_USDC_500_pve.png
+│   │   │   │   ├── WETH_USDC_500_spectral.png
+│   │   │   │   ├── WETH_USDC_eigenvectors.png
+│   │   │   │   ├── WETH_USDC_eigenvectors_20250601_20251031.png
+│   │   │   │   ├── WETH_USDT_300_pve.png
+│   │   │   │   ├── WETH_USDT_300_spectral.png
+│   │   │   │   ├── WETH_USDT_400_pve.png
+│   │   │   │   ├── WETH_USDT_400_spectral.png
+│   │   │   │   ├── WETH_USDT_500_pve.png
+│   │   │   │   ├── WETH_USDT_500_spectral.png
+│   │   │   │   ├── WETH_USDT_eigenvectors.png
+│   │   │   │   └── WETH_USDT_eigenvectors_20250601_20251031.png
+│   │   │   ├── README.md
+│   │   │   ├── coverage.csv
+│   │   │   └── eigenvectors_coverage.csv
+│   │   ├── liquidity-VS-price/
+│   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   └── 5bp_WETH_USDT.png
+│   │   ├── profile/
+│   │   │   ├── absolute-ticks/
+│   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   ├── log-moneyness/
+│   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   └── relative-ticks/
+│   │   │       ├── 1bp_USDC_USDT.png
+│   │   │       ├── 1bp_WETH_USDC.png
+│   │   │       ├── 1bp_WETH_USDT.png
+│   │   │       ├── 30bp_WBTC_USDT.png
+│   │   │       ├── 30bp_WBTC_WETH.png
+│   │   │       ├── 30bp_WETH_USDC.png
+│   │   │       ├── 30bp_WETH_USDT.png
+│   │   │       ├── 5bp_WBTC_USDT.png
+│   │   │       ├── 5bp_WBTC_WETH.png
+│   │   │       ├── 5bp_WETH_USDC.png
+│   │   │       └── 5bp_WETH_USDT.png
+│   │   ├── surface/
+│   │   │   ├── absolute-ticks/
+│   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   ├── log-moneyness/
+│   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   └── relative-ticks/
+│   │   │       ├── 1bp_USDC_USDT.png
+│   │   │       ├── 1bp_WETH_USDC.png
+│   │   │       ├── 1bp_WETH_USDT.png
+│   │   │       ├── 30bp_WBTC_USDT.png
+│   │   │       ├── 30bp_WBTC_WETH.png
+│   │   │       ├── 30bp_WETH_USDC.png
+│   │   │       ├── 30bp_WETH_USDT.png
+│   │   │       ├── 5bp_WBTC_USDT.png
+│   │   │       ├── 5bp_WBTC_WETH.png
+│   │   │       ├── 5bp_WETH_USDC.png
+│   │   │       └── 5bp_WETH_USDT.png
+│   │   ├── 30bp.png
+│   │   ├── 5bp.png
+│   │   └── README.md
+│   ├── price-impact/
+│   │   ├── abs-impact/
+│   │   │   ├── impact-VS-price/
+│   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   ├── profile/
+│   │   │   │   ├── absolute-ticks/
+│   │   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   │   ├── log-moneyness/
+│   │   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   │   └── relative-ticks/
+│   │   │   │       ├── 1bp_USDC_USDT.png
+│   │   │   │       ├── 1bp_WETH_USDC.png
+│   │   │   │       ├── 1bp_WETH_USDT.png
+│   │   │   │       ├── 30bp_WBTC_USDT.png
+│   │   │   │       ├── 30bp_WBTC_WETH.png
+│   │   │   │       ├── 30bp_WETH_USDC.png
+│   │   │   │       ├── 30bp_WETH_USDT.png
+│   │   │   │       ├── 5bp_WBTC_USDT.png
+│   │   │   │       ├── 5bp_WBTC_WETH.png
+│   │   │   │       ├── 5bp_WETH_USDC.png
+│   │   │   │       └── 5bp_WETH_USDT.png
+│   │   │   └── surface/
+│   │   │       ├── absolute-ticks/
+│   │   │       │   ├── 1bp_USDC_USDT.png
+│   │   │       │   ├── 1bp_WETH_USDC.png
+│   │   │       │   ├── 1bp_WETH_USDT.png
+│   │   │       │   ├── 30bp_WBTC_USDT.png
+│   │   │       │   ├── 30bp_WBTC_WETH.png
+│   │   │       │   ├── 30bp_WETH_USDC.png
+│   │   │       │   ├── 30bp_WETH_USDT.png
+│   │   │       │   ├── 5bp_WBTC_USDT.png
+│   │   │       │   ├── 5bp_WBTC_WETH.png
+│   │   │       │   ├── 5bp_WETH_USDC.png
+│   │   │       │   └── 5bp_WETH_USDT.png
+│   │   │       ├── log-moneyness/
+│   │   │       │   ├── 1bp_USDC_USDT.png
+│   │   │       │   ├── 1bp_WETH_USDC.png
+│   │   │       │   ├── 1bp_WETH_USDT.png
+│   │   │       │   ├── 30bp_WBTC_USDT.png
+│   │   │       │   ├── 30bp_WBTC_WETH.png
+│   │   │       │   ├── 30bp_WETH_USDC.png
+│   │   │       │   ├── 30bp_WETH_USDT.png
+│   │   │       │   ├── 5bp_WBTC_USDT.png
+│   │   │       │   ├── 5bp_WBTC_WETH.png
+│   │   │       │   ├── 5bp_WETH_USDC.png
+│   │   │       │   └── 5bp_WETH_USDT.png
+│   │   │       └── relative-ticks/
+│   │   │           ├── 1bp_USDC_USDT.png
+│   │   │           ├── 1bp_WETH_USDC.png
+│   │   │           ├── 1bp_WETH_USDT.png
+│   │   │           ├── 30bp_WBTC_USDT.png
+│   │   │           ├── 30bp_WBTC_WETH.png
+│   │   │           ├── 30bp_WETH_USDC.png
+│   │   │           ├── 30bp_WETH_USDT.png
+│   │   │           ├── 5bp_WBTC_USDT.png
+│   │   │           ├── 5bp_WBTC_WETH.png
+│   │   │           ├── 5bp_WETH_USDC.png
+│   │   │           └── 5bp_WETH_USDT.png
+│   │   ├── rel-impact/
+│   │   │   ├── impact-VS-price/
+│   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   ├── profile/
+│   │   │   │   ├── absolute-ticks/
+│   │   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   │   ├── log-moneyness/
+│   │   │   │   │   ├── 1bp_USDC_USDT.png
+│   │   │   │   │   ├── 1bp_WETH_USDC.png
+│   │   │   │   │   ├── 1bp_WETH_USDT.png
+│   │   │   │   │   ├── 30bp_WBTC_USDT.png
+│   │   │   │   │   ├── 30bp_WBTC_WETH.png
+│   │   │   │   │   ├── 30bp_WETH_USDC.png
+│   │   │   │   │   ├── 30bp_WETH_USDT.png
+│   │   │   │   │   ├── 5bp_WBTC_USDT.png
+│   │   │   │   │   ├── 5bp_WBTC_WETH.png
+│   │   │   │   │   ├── 5bp_WETH_USDC.png
+│   │   │   │   │   └── 5bp_WETH_USDT.png
+│   │   │   │   └── relative-ticks/
+│   │   │   │       ├── 1bp_USDC_USDT.png
+│   │   │   │       ├── 1bp_WETH_USDC.png
+│   │   │   │       ├── 1bp_WETH_USDT.png
+│   │   │   │       ├── 30bp_WBTC_USDT.png
+│   │   │   │       ├── 30bp_WBTC_WETH.png
+│   │   │   │       ├── 30bp_WETH_USDC.png
+│   │   │   │       ├── 30bp_WETH_USDT.png
+│   │   │   │       ├── 5bp_WBTC_USDT.png
+│   │   │   │       ├── 5bp_WBTC_WETH.png
+│   │   │   │       ├── 5bp_WETH_USDC.png
+│   │   │   │       └── 5bp_WETH_USDT.png
+│   │   │   └── surface/
+│   │   │       ├── absolute-ticks/
+│   │   │       │   ├── 1bp_USDC_USDT.png
+│   │   │       │   ├── 1bp_WETH_USDC.png
+│   │   │       │   ├── 1bp_WETH_USDT.png
+│   │   │       │   ├── 30bp_WBTC_USDT.png
+│   │   │       │   ├── 30bp_WBTC_WETH.png
+│   │   │       │   ├── 30bp_WETH_USDC.png
+│   │   │       │   ├── 30bp_WETH_USDT.png
+│   │   │       │   ├── 5bp_WBTC_USDT.png
+│   │   │       │   ├── 5bp_WBTC_WETH.png
+│   │   │       │   ├── 5bp_WETH_USDC.png
+│   │   │       │   └── 5bp_WETH_USDT.png
+│   │   │       ├── log-moneyness/
+│   │   │       │   ├── 1bp_USDC_USDT.png
+│   │   │       │   ├── 1bp_WETH_USDC.png
+│   │   │       │   ├── 1bp_WETH_USDT.png
+│   │   │       │   ├── 30bp_WBTC_USDT.png
+│   │   │       │   ├── 30bp_WBTC_WETH.png
+│   │   │       │   ├── 30bp_WETH_USDC.png
+│   │   │       │   ├── 30bp_WETH_USDT.png
+│   │   │       │   ├── 5bp_WBTC_USDT.png
+│   │   │       │   ├── 5bp_WBTC_WETH.png
+│   │   │       │   ├── 5bp_WETH_USDC.png
+│   │   │       │   └── 5bp_WETH_USDT.png
+│   │   │       └── relative-ticks/
+│   │   │           ├── 1bp_USDC_USDT.png
+│   │   │           ├── 1bp_WETH_USDC.png
+│   │   │           ├── 1bp_WETH_USDT.png
+│   │   │           ├── 30bp_WBTC_USDT.png
+│   │   │           ├── 30bp_WBTC_WETH.png
+│   │   │           ├── 30bp_WETH_USDC.png
+│   │   │           ├── 30bp_WETH_USDT.png
+│   │   │           ├── 5bp_WBTC_USDT.png
+│   │   │           ├── 5bp_WBTC_WETH.png
+│   │   │           ├── 5bp_WETH_USDC.png
+│   │   │           └── 5bp_WETH_USDT.png
+│   │   └── README.md
+│   ├── priced-impermanent-loss/
+│   │   ├── 30bps.png
+│   │   ├── 30bps_I.png
+│   │   ├── 5bps.png
+│   │   └── 5bps_I.png
+│   ├── README.md
+│   └── README.template.md
+├── src/
+│   ├── __pycache__/
+│   │   └── __init__.cpython-312.pyc
+│   ├── data_processing/
+│   │   ├── __pycache__/
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── block_timestamps.cpython-312.pyc
+│   │   ├── liquidity/
+│   │   │   ├── __pycache__/
+│   │   │   │   └── clean_parquet.cpython-312.pyc
+│   │   │   └── clean_parquet.py
+│   │   ├── snapshot/
+│   │   │   ├── __pycache__/
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── config.cpython-312.pyc
+│   │   │   │   ├── liquidity_pipeline.cpython-312.pyc
+│   │   │   │   ├── options_pipeline.cpython-312.pyc
+│   │   │   │   └── utils.cpython-312.pyc
+│   │   │   ├── __init__.py
+│   │   │   ├── config.py
+│   │   │   ├── liquidity_pipeline.py
+│   │   │   ├── options_pipeline.py
+│   │   │   └── utils.py
+│   │   ├── __init__.py
+│   │   ├── block_timestamps.py
+│   │   └── fetch_block_timestamps.py
+│   ├── graphics/
+│   │   ├── __pycache__/
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── cev_elasticity.cpython-312.pyc
+│   │   │   ├── config.cpython-312.pyc
+│   │   │   ├── functional_pca.cpython-312.pyc
+│   │   │   ├── impermanent_loss.cpython-312.pyc
+│   │   │   ├── implied_volatility.cpython-312.pyc
+│   │   │   ├── labels.cpython-312.pyc
+│   │   │   ├── liquidity_profile.cpython-312.pyc
+│   │   │   ├── liquidity_vs_price.cpython-312.pyc
+│   │   │   ├── lvr_pathwise.cpython-312.pyc
+│   │   │   └── price_impact.cpython-312.pyc
+│   │   ├── __init__.py
+│   │   ├── cev_elasticity.py
+│   │   ├── config.py
+│   │   ├── functional_pca.py
+│   │   ├── impermanent_loss.py
+│   │   ├── implied_volatility.py
+│   │   ├── labels.py
+│   │   ├── liquidity_profile.py
+│   │   ├── liquidity_vs_price.py
+│   │   ├── lvr_pathwise.py
+│   │   └── price_impact.py
+│   ├── math_core/
+│   │   ├── __pycache__/
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── cev_elasticity.cpython-312.pyc
+│   │   │   ├── config.cpython-312.pyc
+│   │   │   ├── functional_pca.cpython-312.pyc
+│   │   │   ├── impermanent_loss.cpython-312.pyc
+│   │   │   ├── implied_volatility.cpython-312.pyc
+│   │   │   ├── interpolation.cpython-312.pyc
+│   │   │   ├── liquidity_profile.cpython-312.pyc
+│   │   │   ├── liquidity_vs_price.cpython-312.pyc
+│   │   │   ├── lvr_pathwise.cpython-312.pyc
+│   │   │   ├── price_impact.cpython-312.pyc
+│   │   │   └── profile_measure.cpython-312.pyc
+│   │   ├── __init__.py
+│   │   ├── cev_elasticity.py
+│   │   ├── config.py
+│   │   ├── functional_pca.py
+│   │   ├── impermanent_loss.py
+│   │   ├── implied_volatility.py
+│   │   ├── interpolation.py
+│   │   ├── liquidity_profile.py
+│   │   ├── liquidity_vs_price.py
+│   │   ├── lvr_pathwise.py
+│   │   ├── price_impact.py
+│   │   └── profile_measure.py
+│   └── __init__.py
+├── tests/
+│   ├── __pycache__/
+│   │   ├── test_cev_elasticity.cpython-312-pytest-9.1.0.pyc
+│   │   ├── test_lvr_pathwise.cpython-312-pytest-9.1.0.pyc
+│   │   └── test_profile_measure.cpython-312-pytest-9.1.0.pyc
+│   ├── test_cev_elasticity.py
+│   ├── test_functional_pca_study.py
+│   ├── test_lvr_pathwise.py
+│   ├── test_price_impact.py
+│   ├── test_price_impact_study.py
+│   └── test_profile_measure.py
+├── cev_elasticity_study.py
+├── directory_tree.txt
+├── functional_pca_eigenvectors_study.py
+├── functional_pca_study.py
+├── liquidity_profile_study.py
+├── lvr_pathwise_study.py
+├── price_impact_study.py
+└── snapshot_study.py

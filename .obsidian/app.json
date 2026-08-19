@@ -1,0 +1,21 @@
+{
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "alwaysUpdateLinks": true,
+  "userIgnoreFilters": [
+    "node_modules/",
+    "dist/",
+    "build/",
+    "out/",
+    ".next/",
+    "target/",
+    "coverage/",
+    "__pycache__/",
+    ".venv/",
+    "venv/",
+    ".cache/",
+    "vendor/",
+    "graphify-out/",
+    ".planner-"
+  ]
+}

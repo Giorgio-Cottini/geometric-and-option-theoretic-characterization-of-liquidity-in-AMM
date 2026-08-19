@@ -1,0 +1,16 @@
+# Machine-readable config for an onboarded project region. Read by ingest/lint.
+# Schema: core/os/vault-config-contract.md
+# Written by graph-connect. Edit by hand only with care.
+layer: core                 # inherited from the unifying GeorgOS root vault
+personal: false             # inherited from the root vault
+origin: thesis              # this project's slug — stamped on every page as the filter handle
+index: wiki/index.md        # project catalog, under the wiki/ knowledge folder
+log:   wiki/log.md          # project append-only log
+raw:    .                   # in-place: sources already live in the project; nothing copied
+graphs: wiki/graphs         # RESERVED for ingest-graphify (manual code curation)
+pages:                      # all curated pages land in wiki/; page type lives in frontmatter
+  source:    wiki
+  entity:    wiki
+  concept:   wiki
+  synthesis: wiki
+routing: {}                 # default format routing table
