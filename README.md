@@ -3,16 +3,9 @@
 Master's thesis, University of Padova. The thesis studies pricing and hedging for liquidity
 provision in Constant Function Market Makers (CFMMs), with Uniswap V3 as the working case. Its
 anchor is Tai-Ho Wang's *Pricing and Hedging for Liquidity Provision in Constant Function
-Market Making* and the companion papers listed in `latex/assets/bibliography.bib`. The work
-builds from that mathematical framework into areas the anchor papers state but do not compute,
-plus its own extensions.
-
-## Status
-
-The mathematical framework and methodology chapters carry drafted content. The remaining
-chapters are early stubs. The codebase runs ahead of the prose: every plot under
-`codebase/results/` comes from a runner script in this repository, against the processed data
-tracked here, and reproduces without access to the author's raw data pulls.
+Market Making* and the companion papers described in `wiki/`. The work builds from that
+mathematical framework into areas the anchor papers state but do not compute, plus its own
+extensions.
 
 ## Requirements
 
@@ -161,8 +154,8 @@ how to check a thesis claim against its source.
 
 ## License
 
-`codebase/` is MIT-licensed, in `LICENSE`. The thesis text under `latex/` and the knowledge
-base under `wiki/` carry a separate license, CC BY 4.0, in `LICENSE-DOCS`.
+`codebase/` is MIT-licensed, in `LICENSE`. The knowledge base under `wiki/` carries a separate
+license, CC BY 4.0, in `LICENSE-DOCS`.
 
 ## Citation
 

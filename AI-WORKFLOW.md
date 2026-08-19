@@ -14,8 +14,9 @@ vectorized, numerically stable implementations, type-annotated signatures, and a
 requirement to report confidence and name uncertainty before a non-trivial change.
 
 The assistants did not write thesis prose. `AGENTS.md` states the boundary directly: the
-author writes the thesis text under `latex/chapters/`, and an assistant edits it only on an
-explicit request. `.claude/agents/computational-research-coder.md` and
+author writes the thesis text, and an assistant edits it only on an explicit request. The
+LaTeX source that boundary governs is not part of this repository (see below).
+`.claude/agents/computational-research-coder.md` and
 `computational-research-observer.md` are the two project-specific agents that carried out and
 checked coding tasks. Both are tracked and readable in full.
 
@@ -50,13 +51,18 @@ not that graph is present.
 
 The author's task-planning ledger for AI-assisted coding sessions is local to the author's
 machine and is excluded for the same reason `codebase/graphify-out/` is: it is process
-scaffolding, not a claim this thesis depends on. Nothing in `latex/` or `wiki/` requires it to
-be checked.
+scaffolding, not a claim this thesis depends on. Nothing in `wiki/` requires it to be checked.
+
+The thesis text itself is a third exclusion. `AGENTS.md` and `CLAUDE.md`, tracked here in full
+for transparency, still describe the author's LaTeX-editing rules, since they state the whole
+development contract the assistants worked under. This repository ships the codebase those
+rules also govern, and the wiki, but not the LaTeX tree.
 
 ## Checking a claim
 
-1. Start at `latex/chapters/`, or at `wiki/synthesis-thesis-map.md` for the reading as a whole.
-2. Follow a `@citekey` to `latex/assets/bibliography.bib` for the full reference, or a
-   `[[wikilink]]` to the matching `wiki/source-*.md`, `concept-*.md`, or `entity-*.md` page.
+1. Start at `wiki/synthesis-thesis-map.md`, which weaves the sources and concepts into the
+   thesis's own argument.
+2. Follow a `[[wikilink]]` to the matching `wiki/source-*.md`, `concept-*.md`, or `entity-*.md`
+   page.
 3. Each `source-*.md` page states what the cited paper claims and, where relevant, what it does
    not claim. Treat the underlying paper, not the wiki page, as the authority on both.

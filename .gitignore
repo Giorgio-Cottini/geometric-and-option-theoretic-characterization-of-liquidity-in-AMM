@@ -9,6 +9,10 @@ codebase/data_extraction/.env
 # clean history built from this tree, excludes this directory from its first commit.
 articles/
 
+# The thesis text itself. Not published here: this repository ships the
+# codebase and the reading wiki, not the prose built on top of them.
+latex/
+
 # ═══ REGENERABLE ═══════════════════════════════════════════════════
 # A documented command rebuilds this. The command follows each entry.
 # An entry with no command belongs under a different header.
